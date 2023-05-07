@@ -1,6 +1,6 @@
-
 #include <stdio.h>
 #include <wiringPi.h>
+#include <unistd.h>
  
 #define A_ENABLE_1 13
 #define A_ENABLE_2 19
@@ -75,4 +75,18 @@ void stop(void)
     digitalWrite(A_IN_2, LOW);
     digitalWrite(B_IN_1, LOW);
     digitalWrite(B_IN_2, LOW);
+}
+
+void main(void)
+{
+    init();
+    forward();
+    sleep(2);
+    stop();
+    left();
+    sleep(2);
+    stop();
+    right();
+    sleep(2);
+    stop();
 }
