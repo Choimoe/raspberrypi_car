@@ -4,37 +4,37 @@
 * @author       Danny
 * @version      V1.0
 * @date         2017.08.16
-* @brief        Ñ²ÏßÊµÑé
+* @brief        Ñ²ï¿½ï¿½Êµï¿½ï¿½
 * @details
-* @par History  ¼ûÈçÏÂËµÃ÷
+* @par History  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½
 *
 */
 #include <wiringPi.h>
 #include <softPwm.h>
 
-//¶¨ÒåÒý½Å
-int Left_motor_go = 23;       //×óµç»úÇ°½øAIN2Á¬½ÓRaspberryµÄwiringPi±àÂë28¿Ú
-int Left_motor_back = 24;     //×óµç»úºóÍËAIN1Á¬½ÓRaspberryµÄwiringPi±àÂë29¿Ú
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+int Left_motor_go = 23;       //ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½AIN2ï¿½ï¿½ï¿½ï¿½Raspberryï¿½ï¿½wiringPiï¿½ï¿½ï¿½ï¿½28ï¿½ï¿½
+int Left_motor_back = 24;     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AIN1ï¿½ï¿½ï¿½ï¿½Raspberryï¿½ï¿½wiringPiï¿½ï¿½ï¿½ï¿½29ï¿½ï¿½
 
-int Right_motor_go = 21;      //ÓÒµç»úÇ°½øBIN2Á¬½ÓRaspberryµÄwiringPi±àÂë24¿Ú
-int Right_motor_back = 22;    //ÓÒµç»úºóÍËBIN1Á¬½ÓRaspberryµÄwiringPi±àÂë25¿Ú
+int Right_motor_go = 21;      //ï¿½Òµï¿½ï¿½Ç°ï¿½ï¿½BIN2ï¿½ï¿½ï¿½ï¿½Raspberryï¿½ï¿½wiringPiï¿½ï¿½ï¿½ï¿½24ï¿½ï¿½
+int Right_motor_back = 22;    //ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½BIN1ï¿½ï¿½ï¿½ï¿½Raspberryï¿½ï¿½wiringPiï¿½ï¿½ï¿½ï¿½25ï¿½ï¿½
 
-int Left_motor_pwm = 13;      //×óµç»ú¿ØËÙPWMAÁ¬½ÓRaspberryµÄwiringPi±àÂë27¿Ú
-// 19
-int Right_motor_pwm = 5;     //ÓÒµç»ú¿ØËÙPWMBÁ¬½ÓRaspberryµÄwiringPi±àÂë23¿Ú
-// 6
+int Left_motor_pwm = 13;      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PWMAï¿½ï¿½ï¿½ï¿½Raspberryï¿½ï¿½wiringPiï¿½ï¿½ï¿½ï¿½27ï¿½ï¿½
+int Left_motor_pwm_2 = 19;
+int Right_motor_pwm = 5;     //ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PWMBï¿½ï¿½ï¿½ï¿½Raspberryï¿½ï¿½wiringPiï¿½ï¿½ï¿½ï¿½23ï¿½ï¿½
+int Right_motor_pwm_2 = 6;
 
-int key = 10;                 //¶¨Òå°´¼üÎªRaspberryµÄwiringPi±àÂë10¿Ú
+int key = 10;                 //ï¿½ï¿½ï¿½å°´ï¿½ï¿½ÎªRaspberryï¿½ï¿½wiringPiï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½
 
-//Ñ­¼£ºìÍâÒý½Å¶¨Òå
+//Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¶ï¿½ï¿½ï¿½
 //TrackSensorLeftPin1 TrackSensorLeftPin2 TrackSensorRightPin1 TrackSensorRightPin2
 //      9                 21                  7                   1
-const int TrackSensorLeftPin1  =  9;   //¶¨Òå×ó±ßµÚÒ»¸öÑ­¼£ºìÍâ´«¸ÐÆ÷Òý½ÅÎªwiringPi±àÂë9¿Ú
-const int TrackSensorLeftPin2  =  2;  //¶¨Òå×ó±ßµÚ¶þ¸öÑ­¼£ºìÍâ´«¸ÐÆ÷Òý½ÅÎªwiringPi±àÂë21¿Ú
-const int TrackSensorRightPin1 =  7;   //¶¨ÒåÓÒ±ßµÚÒ»¸öÑ­¼£ºìÍâ´«¸ÐÆ÷Òý½ÅÎªwiringPi±àÂë7¿Ú
-const int TrackSensorRightPin2 =  1;   //¶¨ÒåÓÒ±ßµÚ¶þ¸öÑ­¼£ºìÍâ´«¸ÐÆ÷Òý½ÅÎªwiringPi±àÂë1¿Ú
+const int TrackSensorLeftPin1  =  9;   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½Ò»ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½â´«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªwiringPiï¿½ï¿½ï¿½ï¿½9ï¿½ï¿½
+const int TrackSensorLeftPin2  =  2;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµÚ¶ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½â´«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªwiringPiï¿½ï¿½ï¿½ï¿½21ï¿½ï¿½
+const int TrackSensorRightPin1 =  7;   //ï¿½ï¿½ï¿½ï¿½ï¿½Ò±ßµï¿½Ò»ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½â´«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªwiringPiï¿½ï¿½ï¿½ï¿½7ï¿½ï¿½
+const int TrackSensorRightPin2 =  1;   //ï¿½ï¿½ï¿½ï¿½ï¿½Ò±ßµÚ¶ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½â´«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªwiringPiï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½
 
-//¶¨Òå¸÷¸öÑ­¼£ºìÍâÒý½Å²É¼¯µÄÊý¾ÝµÄ±äÁ¿
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å²É¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ±ï¿½ï¿½ï¿½
 int TrackSensorLeftValue1;
 int TrackSensorLeftValue2;
 int TrackSensorRightValue1;
@@ -44,35 +44,37 @@ int TrackSensorRightValue2;
 * Function       run
 * @author        Danny
 * @date          2017.08.16
-* @brief         Ð¡³µÇ°½ø
-* @param[in1]    left_speed:×óÂÖËÙ¶È
-* @param[in2]    right_speed:ÓÒÂÖËÙ¶È
+* @brief         Ð¡ï¿½ï¿½Ç°ï¿½ï¿½
+* @param[in1]    left_speed:ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
+* @param[in2]    right_speed:ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
 * @param[out]    void
 * @retval        void
-* @par History   ÎÞ
+* @par History   ï¿½ï¿½
 */
 void run(int left_speed, int right_speed)
 {
-  //×óµç»úÇ°½ø
-  digitalWrite(Left_motor_go, HIGH);   //×óµç»úÇ°½øÊ¹ÄÜ
-  digitalWrite(Left_motor_back, LOW);  //×óµç»úºóÍË½ûÖ¹
+  //ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½
+  digitalWrite(Left_motor_go, HIGH);   //ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Ê¹ï¿½ï¿½
+  digitalWrite(Left_motor_back, LOW);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë½ï¿½Ö¹
   softPwmWrite(Left_motor_pwm, left_speed );
+  softPwmWrite(Left_motor_pwm_2, left_speed );
 
-  //ÓÒµç»úÇ°½ø
-  digitalWrite(Right_motor_go, HIGH);  //ÓÒµç»úÇ°½øÊ¹ÄÜ
-  digitalWrite(Right_motor_back, LOW); //ÓÒµç»úºóÍË½ûÖ¹
+  //ï¿½Òµï¿½ï¿½Ç°ï¿½ï¿½
+  digitalWrite(Right_motor_go, HIGH);  //ï¿½Òµï¿½ï¿½Ç°ï¿½ï¿½Ê¹ï¿½ï¿½
+  digitalWrite(Right_motor_back, LOW); //ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½Ë½ï¿½Ö¹
   softPwmWrite(Right_motor_pwm, right_speed);
+  softPwmWrite(Right_motor_pwm_2, right_speed);
 }
 
 /**
 * Function       brake
 * @author        Danny
 * @date          2017.08.16
-* @brief         Ð¡³µÉ²³µ
-* @param[in]     time:ÑÓÊ±Ê±¼ä
+* @brief         Ð¡ï¿½ï¿½É²ï¿½ï¿½
+* @param[in]     time:ï¿½ï¿½Ê±Ê±ï¿½ï¿½
 * @param[out]    void
 * @retval        void
-* @par History   ÎÞ
+* @par History   ï¿½ï¿½
 */
 void brake(int time)
 {
@@ -88,119 +90,129 @@ void brake(int time)
 * Function       left
 * @author        Danny
 * @date          2017.08.16
-* @brief         Ð¡³µ×ó×ª(×óÂÖ²»¶¯£¬ÓÒÂÖÇ°½ø)
-* @param[in1]    left_speed:×óÂÖËÙ¶È
-* @param[in2]    right_speed:ÓÒÂÖËÙ¶È
+* @brief         Ð¡ï¿½ï¿½ï¿½ï¿½×ª(ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½)
+* @param[in1]    left_speed:ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
+* @param[in2]    right_speed:ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
 * @param[out]    void
 * @retval        void
-* @par History   ÎÞ
+* @par History   ï¿½ï¿½
 */
 void left(int left_speed, int right_speed)
 {
-  //×óµç»úÍ£Ö¹
-  digitalWrite(Left_motor_go, LOW);    //×óµç»úÇ°½ø½ûÖ¹
-  digitalWrite(Left_motor_back, LOW);  //×óµç»úºóÍË½ûÖ¹
+  //ï¿½ï¿½ï¿½ï¿½Í£Ö¹
+  digitalWrite(Left_motor_go, LOW);    //ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ö¹
+  digitalWrite(Left_motor_back, LOW);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë½ï¿½Ö¹
   softPwmWrite(Left_motor_pwm, left_speed);
+  softPwmWrite(Left_motor_pwm_2, left_speed );
 
-  //ÓÒµç»úÇ°½ø
-  digitalWrite(Right_motor_go, HIGH);  //ÓÒµç»úÇ°½øÊ¹ÄÜ
-  digitalWrite(Right_motor_back, LOW); //ÓÒµç»úºóÍË½ûÖ¹
+  //ï¿½Òµï¿½ï¿½Ç°ï¿½ï¿½
+  digitalWrite(Right_motor_go, HIGH);  //ï¿½Òµï¿½ï¿½Ç°ï¿½ï¿½Ê¹ï¿½ï¿½
+  digitalWrite(Right_motor_back, LOW); //ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½Ë½ï¿½Ö¹
   softPwmWrite(Right_motor_pwm, right_speed);
+  softPwmWrite(Right_motor_pwm_2, right_speed);
 }
 
 /**
 * Function       right
 * @author        Danny
 * @date          2017.08.16
-* @brief         Ð¡³µÓÒ×ª(ÓÒÂÖ²»¶¯£¬×óÂÖÇ°½ø)
-* @param[in1]    left_speed:×óÂÖËÙ¶È
-* @param[in2]    right_speed:ÓÒÂÖËÙ¶È
+* @brief         Ð¡ï¿½ï¿½ï¿½ï¿½×ª(ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½)
+* @param[in1]    left_speed:ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
+* @param[in2]    right_speed:ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
 * @param[out]    void
 * @retval        void
-* @par History   ÎÞ
+* @par History   ï¿½ï¿½
 */
 void right(int left_speed, int right_speed)
 {
-  //×óµç»úÇ°½ø
-  digitalWrite(Left_motor_go, HIGH);   //×óµç»úÇ°½øÊ¹ÄÜ
-  digitalWrite(Left_motor_back, LOW);  //×óµç»úºóÍË½ûÖ¹
+  //ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½
+  digitalWrite(Left_motor_go, HIGH);   //ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Ê¹ï¿½ï¿½
+  digitalWrite(Left_motor_back, LOW);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë½ï¿½Ö¹
   softPwmWrite(Left_motor_pwm, left_speed);
+  softPwmWrite(Left_motor_pwm_2, left_speed );
 
-  //ÓÒµç»úÍ£Ö¹
-  digitalWrite(Right_motor_go, LOW);   //ÓÒµç»úÇ°½ø½ûÖ¹
-  digitalWrite(Right_motor_back, LOW); //ÓÒµç»úºóÍË½ûÖ¹
+  //ï¿½Òµï¿½ï¿½Í£Ö¹
+  digitalWrite(Right_motor_go, LOW);   //ï¿½Òµï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ö¹
+  digitalWrite(Right_motor_back, LOW); //ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½Ë½ï¿½Ö¹
   softPwmWrite(Right_motor_pwm, right_speed);
+  softPwmWrite(Right_motor_pwm_2, right_speed);
 }
 
 /**
 * Function       spin_left
 * @author        Danny
 * @date          2017.08.16
-* @brief         Ð¡³µÔ­µØ×ó×ª(×óÂÖºóÍË£¬ÓÒÂÖÇ°½ø)
-* @param[in1]    left_speed:×óÂÖËÙ¶È
-* @param[in2]    right_speed:ÓÒÂÖËÙ¶È
+* @brief         Ð¡ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½×ª(ï¿½ï¿½ï¿½Öºï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½)
+* @param[in1]    left_speed:ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
+* @param[in2]    right_speed:ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
 * @param[out]    void
 * @retval        void
-* @par History   ÎÞ
+* @par History   ï¿½ï¿½
 */
 void spin_left(int left_speed, int right_speed)
 {
-  //×óµç»úºóÍË
-  digitalWrite(Left_motor_go, LOW);     //×óµç»úÇ°½ø½ûÖ¹
-  digitalWrite(Left_motor_back, HIGH);  //×óµç»úºóÍËÊ¹ÄÜ
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  digitalWrite(Left_motor_go, LOW);     //ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ö¹
+  digitalWrite(Left_motor_back, HIGH);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
   softPwmWrite(Left_motor_pwm, left_speed);
+  softPwmWrite(Left_motor_pwm_2, left_speed );
 
-  //ÓÒµç»úÇ°½ø
-  digitalWrite(Right_motor_go, HIGH);  //ÓÒµç»úÇ°½øÊ¹ÄÜ
-  digitalWrite(Right_motor_back, LOW); //ÓÒµç»úºóÍË½ûÖ¹
+  //ï¿½Òµï¿½ï¿½Ç°ï¿½ï¿½
+  digitalWrite(Right_motor_go, HIGH);  //ï¿½Òµï¿½ï¿½Ç°ï¿½ï¿½Ê¹ï¿½ï¿½
+  digitalWrite(Right_motor_back, LOW); //ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½Ë½ï¿½Ö¹
   softPwmWrite(Right_motor_pwm, right_speed);
+  softPwmWrite(Right_motor_pwm_2, right_speed);
 }
 
 /**
 * Function       spin_right
 * @author        Danny
 * @date          2017.08.16
-* @brief         Ð¡³µÔ­µØÓÒ×ª(ÓÒÂÖºóÍË£¬×óÂÖÇ°½ø)
-* @param[in1]    left_speed:×óÂÖËÙ¶È
-* @param[in2]    right_speed:ÓÒÂÖËÙ¶È
+* @brief         Ð¡ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½×ª(ï¿½ï¿½ï¿½Öºï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½)
+* @param[in1]    left_speed:ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
+* @param[in2]    right_speed:ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
 * @param[out]    void
 * @retval        void
-* @par History   ÎÞ
+* @par History   ï¿½ï¿½
 */
 void spin_right(int left_speed, int right_speed)
 {
-  //×óµç»úÇ°½ø
-  digitalWrite(Left_motor_go, HIGH);    //×óµç»úÇ°½øÊ¹ÄÜ
-  digitalWrite(Left_motor_back, LOW);   //×óµç»úºóÍË½ûÖ¹
+  //ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½
+  digitalWrite(Left_motor_go, HIGH);    //ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Ê¹ï¿½ï¿½
+  digitalWrite(Left_motor_back, LOW);   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë½ï¿½Ö¹
   softPwmWrite(Left_motor_pwm, left_speed);
+  softPwmWrite(Left_motor_pwm_2, left_speed );
 
-  //ÓÒµç»úºóÍË
-  digitalWrite(Right_motor_go, LOW);    //ÓÒµç»úÇ°½ø½ûÖ¹
-  digitalWrite(Right_motor_back, HIGH); //ÓÒµç»úºóÍËÊ¹ÄÜ
+  //ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  digitalWrite(Right_motor_go, LOW);    //ï¿½Òµï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ö¹
+  digitalWrite(Right_motor_back, HIGH); //ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
   softPwmWrite(Right_motor_pwm, right_speed);
+  softPwmWrite(Right_motor_pwm_2, right_speed);
 }
 
 /**
 * Function       back
 * @author        Danny
 * @date          2017.08.16
-* @brief         Ð¡³µºóÍË
-* @param[in]     time£ºÑÓÊ±Ê±¼ä
+* @brief         Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+* @param[in]     timeï¿½ï¿½ï¿½ï¿½Ê±Ê±ï¿½ï¿½
 * @param[out]    void
 * @retval        void
-* @par History   ÎÞ
+* @par History   ï¿½ï¿½
 */
 void back(int time)
 {
-  //×óµç»úºóÍË
-  digitalWrite(Left_motor_go, LOW);     //×óµç»úÇ°½ø½ûÖ¹
-  digitalWrite(Left_motor_back, HIGH);  //×óµç»úºóÍËÊ¹ÄÜ
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  digitalWrite(Left_motor_go, LOW);     //ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ö¹
+  digitalWrite(Left_motor_back, HIGH);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
   softPwmWrite(Left_motor_pwm, 40);
+  softPwmWrite(Left_motor_pwm_2, 40);
 
-  //ÓÒµç»úºóÍË
-  digitalWrite(Right_motor_go, LOW);    //ÓÒµç»úÇ°½ø½ûÖ¹
-  digitalWrite(Right_motor_back, HIGH); //ÓÒµç»úºóÍËÊ¹ÄÜ
+  //ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  digitalWrite(Right_motor_go, LOW);    //ï¿½Òµï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ö¹
+  digitalWrite(Right_motor_back, HIGH); //ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
   softPwmWrite(Right_motor_pwm, 40);
+  softPwmWrite(Right_motor_pwm_2, 40);
 
   delay(time );
 }
@@ -209,22 +221,22 @@ void back(int time)
 * Function       key_scan
 * @author        Danny
 * @date          2017.08.16
-* @brief         °´¼ü¼ì²â(°üº¬Èí¼þ°´¼üÈ¥¶¶)
+* @brief         ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½)
 * @param[in]     void
 * @param[out]    void
 * @retval        void
-* @par History   ÎÞ
+* @par History   ï¿½ï¿½
 */
 void key_scan()
 {
-  while (digitalRead(key));       //µ±°´¼üÃ»ÓÐ±»°´ÏÂÒ»Ö±Ñ­»·
-  while (!digitalRead(key))       //µ±°´¼ü±»°´ÏÂÊ±
+  while (digitalRead(key));       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ö±Ñ­ï¿½ï¿½
+  while (!digitalRead(key))       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±
   {
-    delay(10);	                  //ÑÓÊ±10ms
-    if (digitalRead(key)  ==  LOW)//µÚ¶þ´ÎÅÐ¶Ï°´¼üÊÇ·ñ±»°´ÏÂ
+    delay(10);	                  //ï¿½ï¿½Ê±10ms
+    if (digitalRead(key)  ==  LOW)//ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½Ð¶Ï°ï¿½ï¿½ï¿½ï¿½Ç·ñ±»°ï¿½ï¿½ï¿½
     {
       delay(100);
-      while (!digitalRead(key));  //ÅÐ¶Ï°´¼üÊÇ·ñ±»ËÉ¿ª
+      while (!digitalRead(key));  //ï¿½Ð¶Ï°ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½É¿ï¿½
     }
   }
 }
@@ -233,105 +245,105 @@ void key_scan()
 * Function       main
 * @author        Danny
 * @date          2017.08.16
-* @brief         ÏÈµ÷ÓÃsetup³õÊ¼»¯ÅäÖÃÀïÃæµÄ°´¼üÉ¨Ãèº¯Êý£¬
-*                Ñ­¼£Ä£Ê½¿ªÆô
+* @brief         ï¿½Èµï¿½ï¿½ï¿½setupï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½É¨ï¿½èº¯ï¿½ï¿½ï¿½ï¿½
+*                Ñ­ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½
 * @param[in]     void
 * @retval        void
-* @par History   ÎÞ
+* @par History   ï¿½ï¿½
 */
 void main()
 {
-  //wiringPi³õÊ¼»¯
+  //wiringPiï¿½ï¿½Ê¼ï¿½ï¿½
   wiringPiSetup();
 	
-  //³õÊ¼»¯µç»úÇý¶¯IO¿ÚÎªÊä³ö·½Ê½
+  //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IOï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ê½
   pinMode(Left_motor_go, OUTPUT);
   pinMode(Left_motor_back, OUTPUT);
   pinMode(Right_motor_go, OUTPUT);
   pinMode(Right_motor_back, OUTPUT);
 
-  //´´½¨Á½¸öÈí¼þ¿ØÖÆµÄPWM½Å
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½PWMï¿½ï¿½
   softPwmCreate(Left_motor_pwm,0,255); 
   softPwmCreate(Right_motor_pwm,0,255);
   
-  //¶¨Òå°´¼ü½Ó¿ÚÎªÊäÈë½Ó¿Ú
+  //ï¿½ï¿½ï¿½å°´ï¿½ï¿½ï¿½Ó¿ï¿½Îªï¿½ï¿½ï¿½ï¿½Ó¿ï¿½
   pinMode(key, INPUT);
 
-  //¶¨ÒåËÄÂ·Ñ­¼£ºìÍâ´«¸ÐÆ÷ÎªÊäÈë½Ó¿Ú
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½â´«ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½Ó¿ï¿½
   pinMode(TrackSensorLeftPin1, INPUT);
   pinMode(TrackSensorLeftPin2, INPUT);
   pinMode(TrackSensorRightPin1, INPUT);
   pinMode(TrackSensorRightPin2, INPUT);
 
-  //µ÷ÓÃ°´¼üÉ¨Ãèº¯Êý
+  //ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½É¨ï¿½èº¯ï¿½ï¿½
   key_scan();
   
   while(1)
   {
-   //¼ì²âµ½ºÚÏßÊ±Ñ­¼£Ä£¿éÏàÓ¦µÄÖ¸Ê¾µÆÁÁ£¬¶Ë¿ÚµçÆ½ÎªLOW
-   //Î´¼ì²âµ½ºÚÏßÊ±Ñ­¼£Ä£¿éÏàÓ¦µÄÖ¸Ê¾µÆÃð£¬¶Ë¿ÚµçÆ½ÎªHIGH
+   //ï¿½ï¿½âµ½ï¿½ï¿½ï¿½ï¿½Ê±Ñ­ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ö¸Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿Úµï¿½Æ½ÎªLOW
+   //Î´ï¿½ï¿½âµ½ï¿½ï¿½ï¿½ï¿½Ê±Ñ­ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ö¸Ê¾ï¿½ï¿½ï¿½ð£¬¶Ë¿Úµï¿½Æ½ÎªHIGH
    TrackSensorLeftValue1  = digitalRead(TrackSensorLeftPin1);
    TrackSensorLeftValue2  = digitalRead(TrackSensorLeftPin2);
    TrackSensorRightValue1 = digitalRead(TrackSensorRightPin1);
    TrackSensorRightValue2 = digitalRead(TrackSensorRightPin2);
 
-   //ËÄÂ·Ñ­¼£Òý½ÅµçÆ½×´Ì¬
+   //ï¿½ï¿½Â·Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½Æ½×´Ì¬
    // 0 0 X 0
    // 1 0 X 0
    // 0 1 X 0
-   //ÒÔÉÏ6ÖÖµçÆ½×´Ì¬Ê±Ð¡³µÔ­µØÓÒ×ª£¬ËÙ¶ÈÎª250,ÑÓÊ±80ms
-   //´¦ÀíÓÒÈñ½ÇºÍÓÒÖ±½ÇµÄ×ª¶¯
+   //ï¿½ï¿½ï¿½ï¿½6ï¿½Öµï¿½Æ½×´Ì¬Ê±Ð¡ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½Ù¶ï¿½Îª250,ï¿½ï¿½Ê±80ms
+   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½Ö±ï¿½Çµï¿½×ªï¿½ï¿½
    if ( (TrackSensorLeftValue1 == LOW || TrackSensorLeftValue2 == LOW) &&  TrackSensorRightValue2 == LOW)
    {
      spin_right(250, 250);
      delay(80);
    }
-   //ËÄÂ·Ñ­¼£Òý½ÅµçÆ½×´Ì¬
+   //ï¿½ï¿½Â·Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½Æ½×´Ì¬
    // 0 X 0 0       
    // 0 X 0 1 
    // 0 X 1 0       
-   //´¦Àí×óÈñ½ÇºÍ×óÖ±½ÇµÄ×ª¶¯
+   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½Ö±ï¿½Çµï¿½×ªï¿½ï¿½
    else if ( TrackSensorLeftValue1 == LOW && (TrackSensorRightValue1 == LOW ||  TrackSensorRightValue2 == LOW))
    {
      spin_left(250, 250);
      delay(80);
    }
    // 0 X X X
-   //×î×ó±ß¼ì²âµ½
+   //ï¿½ï¿½ï¿½ï¿½ß¼ï¿½âµ½
    else if ( TrackSensorLeftValue1 == LOW)
    {
      spin_left(150, 150);
      //delay(10);
    }
    // X X X 0
-   //×îÓÒ±ß¼ì²âµ½
+   //ï¿½ï¿½ï¿½Ò±ß¼ï¿½âµ½
    else if ( TrackSensorRightValue2 == LOW )
    {
      spin_right(150, 150);
      //delay(10);
    }
-   //ËÄÂ·Ñ­¼£Òý½ÅµçÆ½×´Ì¬
+   //ï¿½ï¿½Â·Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½Æ½×´Ì¬
    // X 0 1 X
-   //´¦Àí×óÐ¡Íä
+   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½
    else if ( TrackSensorLeftValue2 == LOW && TrackSensorRightValue1 == HIGH)
    {
      left(0, 220);
    }
-   //ËÄÂ·Ñ­¼£Òý½ÅµçÆ½×´Ì¬
+   //ï¿½ï¿½Â·Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½Æ½×´Ì¬
    // X 1 0 X  
-   //´¦ÀíÓÒÐ¡Íä
+   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½
    else if (TrackSensorLeftValue2 == HIGH && TrackSensorRightValue1 == LOW)
    {
      right(220, 0);
    }
-   //ËÄÂ·Ñ­¼£Òý½ÅµçÆ½×´Ì¬
+   //ï¿½ï¿½Â·Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½Æ½×´Ì¬
    // X 0 0 X
-   //´¦ÀíÖ±Ïß
+   //ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½
    else if (TrackSensorLeftValue2 == LOW && TrackSensorRightValue1 == LOW)
    {
      run(255, 255);
    }
-   //µ±Îª1 1 1 1Ê±Ð¡³µ±£³ÖÉÏÒ»¸öÐ¡³µÔËÐÐ×´Ì¬
+   //ï¿½ï¿½Îª1 1 1 1Ê±Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
  }
  return;
 }
