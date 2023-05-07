@@ -78,18 +78,18 @@ private:
 };
 
 int main(){
-    Car mc = new Car();
-    firstCar.front();
+    Car mc;
+    mc.front();
     delay(50);
-    firstCar.stop();
-    firstCar.left();
+    mc.stop();
+    mc.left();
     delay(50);
-    firstCar.stop();
-    firstCar.right();
+    mc.stop();
+    mc.right();
     delay(50);
-    firstCar.stop();
-    firstCar.back();
+    mc.stop();
+    mc.back();
     delay(50);
-    firstCar.stop();
+    mc.stop();
     return 0;
 }
