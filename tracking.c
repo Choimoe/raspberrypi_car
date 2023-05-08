@@ -21,10 +21,10 @@ int Left_motor_pwm2 = 22;      //左电机控速PWMA连接Raspberry的wiringPi�
 int Right_motor_pwm1 = 23;     //右电机控速PWMB连接Raspberry的wiringPi编码23口
 int Right_motor_pwm2 = 24;     //右电机控速PWMB连接Raspberry的wiringPi编码23口
 
-const int TrackSensorLeftPin1  =  1;   //定义左边第一个循迹红外传感器引脚为wiringPi编码9口
-const int TrackSensorLeftPin2  =  9;  //定义左边第二个循迹红外传感器引脚为wiringPi编码2口
-const int TrackSensorRightPin1 =  8;   //定义右边第一个循迹红外传感器引脚为wiringPi编码7口
-const int TrackSensorRightPin2 =  2;   //定义右边第二个循迹红外传感器引脚为wiringPi编码1口
+const int TrackSensorLeftPin1  =  8;   //定义左边第一个循迹红外传感器引脚为wiringPi编码9口
+const int TrackSensorLeftPin2  =  2;  //定义左边第二个循迹红外传感器引脚为wiringPi编码2口
+const int TrackSensorRightPin1 =  9;   //定义右边第一个循迹红外传感器引脚为wiringPi编码7口
+const int TrackSensorRightPin2 =  1;   //定义右边第二个循迹红外传感器引脚为wiringPi编码1口
 
 //定义各个循迹红外引脚采集的数据的变量
 int TrackSensorLeftValue1;
@@ -304,7 +304,10 @@ void main()
   //  // 0 X X X
   //  //最左边检测到
   //  else
-  printf("%d %d %d %d\n", TrackSensorLeftValue1 == HIGH, TrackSensorLeftValue2 == HIGH, TrackSensorRightValue2 == HIGH, TrackSensorRightValue2 == HIGH); 
+  
+
+  //                      TrackSensorRightValue2         TrackSensorRightValue1
+  // printf("%d %d %d %d\n", TrackSensorLeftValue1 == HIGH, TrackSensorLeftValue2 == HIGH, TrackSensorRightValue2 == HIGH, TrackSensorRightValue2 == HIGH); 
    if ( TrackSensorLeftValue1 == LOW)
    {
      //spin_left(200, 200);
